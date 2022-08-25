@@ -58,9 +58,21 @@ struct Home: View {
             
             ZStack {
                 
+                //MARK: Clock Design
                 
-                
-                
+                ZStack {
+                    ForEach(1...60, id: \.self) {index in
+                        Rectangle()
+                            .fill(index % 5 == 0 ? .black : .gray)
+                        //Each hour will have big line
+                        //60/5 = 12
+                            .frame(width: 2, height: index % 5 == 0 ? 15 : 5)
+                        //Setting into entire Circle
+                            .offset(y: (width - 60) / 2)
+                            .rotationEffect(.init(degrees: Double(index) * 6))
+                        
+                    }
+                }
                 
                 Circle()
                     .stroke(.black.opacity(0.06), lineWidth: 40)

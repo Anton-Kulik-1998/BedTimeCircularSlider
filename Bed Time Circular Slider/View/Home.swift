@@ -72,6 +72,18 @@ struct Home: View {
                             .rotationEffect(.init(degrees: Double(index) * 6))
                         
                     }
+                    
+                    //MARK: Clock Text
+                    let texts = [6,9,12,3]
+                    ForEach(texts.indices, id: \.self) {index in
+                        Text("\(texts[index])")
+                            .font(.caption.bold())
+                            .foregroundColor(.black)
+                            .rotationEffect(.init(degrees: Double(index) * -90))
+                            .offset(y: (width - 90) / 2)
+                            .rotationEffect(.init(degrees: Double(index) * 90))
+                        
+                    }
                 }
                 
                 Circle()

@@ -59,14 +59,13 @@ struct Home: View {
             ZStack {
                 
                 //MARK: Clock Design
-                
                 ZStack {
                     ForEach(1...60, id: \.self) {index in
                         Rectangle()
                             .fill(index % 5 == 0 ? .black : .gray)
                         //Each hour will have big line
                         //60/5 = 12
-                            .frame(width: 2, height: index % 5 == 0 ? 15 : 5)
+                            .frame(width: 2, height: index % 5 == 0 ? 10 : 5)
                         //Setting into entire Circle
                             .offset(y: (width - 60) / 2)
                             .rotationEffect(.init(degrees: Double(index) * 6))
@@ -104,8 +103,14 @@ struct Home: View {
                     .background(.white, in: Circle())
                 //Moving to rigth & Rotating
                     .offset(x: width / 2)
-                    .rotationEffect(.init(degrees: -90))
                     .rotationEffect(.init(degrees: startAngle))
+                    .gesture(
+                        DragGesture()
+                            .onChanged({value in
+                                onDrag(value: value)
+                            })
+                    )
+                    .rotationEffect(.init(degrees: -90))
                 
                 
                 Image(systemName: "alarm")
@@ -118,11 +123,30 @@ struct Home: View {
                     .background(.white, in: Circle())
                 //Moving to rigth & Rotating
                     .offset(x: width / 2)
-                    .rotationEffect(.init(degrees: -90))
                     .rotationEffect(.init(degrees: toAngle))
+                    .gesture(
+                        DragGesture()
+                            .onChanged({value in
+                                onDrag(value: value)
+                            })
+                    )
+                    .rotationEffect(.init(degrees: -90))
+                
+                //MARK: Hour Text
+                VStack(spacing: 6) {
+                    Text("4hr")
+                        .font(.largeTitle.bold())
+                    Text("30min")
+                        .foregroundColor(.gray)
+                }
+                .scaleEffect(1.1)
             }
         }
         .frame(width: screenBounds().width / 1.6, height: screenBounds().height / 1.6)
+    }
+    
+    func onDrag(value: DragGesture.Value) {
+        
     }
 }
 
